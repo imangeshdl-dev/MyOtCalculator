@@ -1,198 +1,253 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MSPGCL Overtime Calculator</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    }
-    body {
-      background-color: #f0f2f5;
-      margin: 0;
-      padding: 20px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-    }
-    .calculator-card {
-      background-color: #ffffff;
-      padding: 25px;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      width: 100%;
-      max-width: 450px;
-    }
-    h2 {
-      margin-top: 0;
-      color: #1a365d;
-      text-align: center;
-      font-size: 1.5rem;
-      border-bottom: 2px solid #e2e8f0;
-      padding-bottom: 12px;
-    }
-    .form-group {
-      margin-bottom: 16px;
-    }
-    label {
-      display: block;
-      margin-bottom: 6px;
-      font-weight: 600;
-      color: #2d3748;
-      font-size: 0.9rem;
-    }
-    input[type="number"],
-    input[type="month"] {
-      width: 100%;
-      padding: 10px 12px;
-      border: 1px solid #cbd5e0;
-      border-radius: 6px;
-      font-size: 1rem;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-    input[type="number"]:focus,
-    input[type="month"]:focus {
-      border-color: #3182ce;
-      box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.15);
-    }
-    .info-badge {
-      display: inline-block;
-      font-size: 0.8rem;
-      color: #4a5568;
-      background-color: #edf2f7;
-      padding: 4px 8px;
-      border-radius: 4px;
-      margin-top: 4px;
-    }
-    .result-box {
-      margin-top: 24px;
-      padding: 16px;
-      background-color: #ebf8ff;
-      border: 1px solid #bee3f8;
-      border-radius: 8px;
-    }
-    .result-row {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 8px;
-      font-size: 0.95rem;
-      color: #2b6cb0;
-    }
-    .result-row.total {
-      margin-bottom: 0;
-      padding-top: 8px;
-      border-top: 1px dashed #cbd5e0;
-      font-weight: 700;
-      font-size: 1.15rem;
-      color: #2c5282;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overtime Calculator</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f4f6f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .calculator-card {
+            background: #ffffff;
+            width: 100%;
+            max-width: 450px;
+            padding: 28px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        h2 {
+            text-align: center;
+            color: #1a1a1a;
+            margin-bottom: 24px;
+            font-size: 22px;
+        }
+
+        .input-group {
+            margin-bottom: 16px;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #4a5568;
+            margin-bottom: 6px;
+        }
+
+        input[type="number"], input[type="month"], select {
+            width: 100%;
+            padding: 12px;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+            transition: border-color 0.2s;
+            background-color: #fff;
+        }
+
+        input[type="number"]:focus, input[type="month"]:focus, select:focus {
+            border-color: #3182ce;
+        }
+
+        .days-badge {
+            font-size: 12px;
+            color: #2b6cb0;
+            background-color: #ebf8ff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            margin-top: 6px;
+            display: inline-block;
+            font-weight: 500;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: #3182ce;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: #2b6cb0;
+        }
+
+        .result-box {
+            margin-top: 24px;
+            padding: 16px;
+            background-color: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .result-title {
+            font-size: 13px;
+            color: #166534;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .result-amount {
+            font-size: 24px;
+            font-weight: 700;
+            color: #15803d;
+        }
+
+        .formula-note {
+            margin-top: 20px;
+            font-size: 11px;
+            color: #a0aec0;
+            text-align: center;
+            line-height: 1.4;
+        }
+    </style>
 </head>
 <body>
 
-<div class="calculator-card">
-  <h2>MSPGCL OT Calculator</h2>
+    <div class="calculator-card">
+        <h2>Overtime Calculator</h2>
 
-  <!-- Basic Pay Input -->
-  <div class="form-group">
-    <label for="basicPay">Basic Pay (₹):</label>
-    <input type="number" id="basicPay" placeholder="e.g. 45000" oninput="calculateOT()">
-  </div>
+        <!-- Earnings Inputs -->
+        <div class="input-group">
+            <label for="basic">Basic Pay</label>
+            <input type="number" id="basic" placeholder="e.g. 15000" min="0" step="any">
+        </div>
 
-  <!-- DA Rate Input -->
-  <div class="form-group">
-    <label for="daRate">Dearness Allowance (DA %):</label>
-    <input type="number" id="daRate" placeholder="e.g. 50" oninput="calculateOT()">
-  </div>
+        <div class="input-group">
+            <label for="da">Dearness Allowance (DA)</label>
+            <input type="number" id="da" placeholder="e.g. 5000" min="0" step="any">
+        </div>
 
-  <!-- Month & Year Selector -->
-  <div class="form-group">
-    <label for="monthPicker">Select Month & Year:</label>
-    <input type="month" id="monthPicker" onchange="calculateOT()">
-    <div id="daysCountBadge" class="info-badge">Days in month: --</div>
-  </div>
+        <div class="input-group">
+            <label for="sc">Special Compensation (SC)</label>
+            <input type="number" id="sc" placeholder="e.g. 2000" min="0" step="any">
+        </div>
 
-  <!-- Overtime Hours Input -->
-  <div class="form-group">
-    <label for="otHours">Total Overtime Hours:</label>
-    <input type="number" id="otHours" placeholder="e.g. 16" oninput="calculateOT()">
-  </div>
+        <div class="input-group">
+            <label for="fb">Fringe Benefits (FB)</label>
+            <input type="number" id="fb" placeholder="e.g. 1000" min="0" step="any">
+        </div>
 
-  <!-- Results Summary -->
-  <div class="result-box">
-    <div class="result-row">
-      <span>Basic + DA:</span>
-      <span id="basicPlusDa">₹ 0.00</span>
+        <!-- Month & Year Selector -->
+        <div class="input-group">
+            <label for="monthPicker">Select Month & Year</label>
+            <input type="month" id="monthPicker" onchange="updateDaysDisplay()">
+            <div class="days-badge" id="daysBadge">Days in month: --</div>
+        </div>
+
+        <div class="input-group">
+            <label for="otHours">Overtime Worked (Hours)</label>
+            <select id="otHours">
+                <!-- Dynamically populated via JS from 1 to 120 -->
+            </select>
+        </div>
+
+        <button onclick="calculateOT()">Calculate OT Amount</button>
+
+        <div class="result-box">
+            <div class="result-title">Total Overtime Pay</div>
+            <div class="result-amount" id="result">0.00</div>
+        </div>
+
+        <div class="formula-note">
+            Formula: { (Basic + DA + SC + FB) / (Days in Month × 8) } × Hours × 2
+        </div>
     </div>
-    <div class="result-row">
-      <span>Calculated Days in Month:</span>
-      <span id="daysInMonthText">0 days</span>
-    </div>
-    <div class="result-row">
-      <span>Hourly OT Rate:</span>
-      <span id="hourlyRate">₹ 0.00 / hr</span>
-    </div>
-    <div class="result-row total">
-      <span>Total OT Amount:</span>
-      <span id="totalOtAmount">₹ 0.00</span>
-    </div>
-  </div>
-</div>
 
-<script>
-  // Automatically select the current month on initial page load
-  window.addEventListener('DOMContentLoaded', () => {
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, '0');
-    document.getElementById('monthPicker').value = `${year}-${month}`;
-    calculateOT();
-  });
+    <script>
+        // Populate OT Hours Dropdown (1 to 120)
+        const otSelect = document.getElementById('otHours');
+        for (let i = 1; i <= 120; i++) {
+            const option = document.createElement('option');
+            option.value = i;
+            option.textContent = i + (i === 1 ? ' Hour' : ' Hours');
+            otSelect.appendChild(option);
+        }
 
-  // Helper function to return total days in a selected month & year
-  function getDaysInMonth(year, month) {
-    // Setting day argument as 0 gets the last day of the preceding month
-    return new Date(year, month, 0).getDate();
-  }
+        // Set current month as default when the page opens
+        window.addEventListener('DOMContentLoaded', () => {
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            document.getElementById('monthPicker').value = `${year}-${month}`;
+            updateDaysDisplay();
+        });
 
-  function calculateOT() {
-    const basicPay = parseFloat(document.getElementById('basicPay').value) || 0;
-    const daRate = parseFloat(document.getElementById('daRate').value) || 0;
-    const otHours = parseFloat(document.getElementById('otHours').value) || 0;
-    const monthPickerVal = document.getElementById('monthPicker').value;
+        // Helper function to find total days in the selected month & year
+        function getDaysInMonth(year, month) {
+            return new Date(year, month, 0).getDate();
+        }
 
-    if (!monthPickerVal) return;
+        // Update the badge text under the month selector
+        function updateDaysDisplay() {
+            const monthVal = document.getElementById('monthPicker').value;
+            if (!monthVal) return 0;
 
-    // Parse YYYY-MM
-    const [year, month] = monthPickerVal.split('-').map(Number);
-    
-    // Calculate total days for the picked month
-    const daysInMonth = getDaysInMonth(year, month);
-    document.getElementById('daysCountBadge').innerText = `Days in month: ${daysInMonth}`;
-    document.getElementById('daysInMonthText').innerText = `${daysInMonth} days`;
+            const [year, month] = monthVal.split('-').map(Number);
+            const days = getDaysInMonth(year, month);
+            document.getElementById('daysBadge').textContent = `Days in month: ${days} Days`;
+            return days;
+        }
 
-    // Calculate Basic + DA
-    const daAmount = (basicPay * daRate) / 100;
-    const totalBasicDa = basicPay + daAmount;
+        // OT Calculation Function
+        function calculateOT() {
+            const basic = parseFloat(document.getElementById('basic').value) || 0;
+            const da = parseFloat(document.getElementById('da').value) || 0;
+            const sc = parseFloat(document.getElementById('sc').value) || 0;
+            const fb = parseFloat(document.getElementById('fb').value) || 0;
 
-    // OT Formula calculation:
-    // (Basic + DA) / Days In Month / Standard Work Hours * Overtime Hours
-    // Note: Assuming standard shift divisor of 200 hours per standard month practice or daily rate calculation.
-    // Daily Rate = totalBasicDa / daysInMonth
-    const dailyRate = totalBasicDa / daysInMonth;
-    const hourlyRate = dailyRate / 8; // Assuming an 8-hour daily shift standard
-    const totalOt = hourlyRate * otHours * 2; // Double rate for OT if applicable
+            const monthVal = document.getElementById('monthPicker').value;
+            const otHours = parseFloat(document.getElementById('otHours').value);
 
-    // Display Results
-    document.getElementById('basicPlusDa').innerText = `₹ ${totalBasicDa.toFixed(2)}`;
-    document.getElementById('hourlyRate').innerText = `₹ ${(hourlyRate * 2).toFixed(2)} / hr`;
-    document.getElementById('totalOtAmount').innerText = `₹ ${totalOt.toFixed(2)}`;
-  }
-</script>
+            if (!monthVal) {
+                alert("Please select a month and year.");
+                return;
+            }
 
+            if (basic === 0) {
+                alert("Please enter at least the Basic Pay.");
+                return;
+            }
+
+            // Get exact days for the selected month/year
+            const [year, month] = monthVal.split('-').map(Number);
+            const daysInMonth = getDaysInMonth(year, month);
+
+            // Calculation Logic:
+            // Formula = {(Basic + DA + SC + FB) / (Days in month * 8)} * hour OT work * 2
+            const totalEarnings = basic + da + sc + fb;
+            const workingHours = daysInMonth * 8;
+            const hourlyRate = totalEarnings / workingHours;
+            const otAmount = hourlyRate * otHours * 2;
+
+            // Display formatted result
+            document.getElementById('result').textContent = otAmount.toLocaleString('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+        }
+    </script>
 </body>
 </html>
