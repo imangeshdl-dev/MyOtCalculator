@@ -1,0 +1,27 @@
+{
+  "id": "ot-calculator-app",
+  "name": "Overtime Pay Calculator",
+  "short_name": "OT Calc",
+  "description": "Cross-platform overtime earnings calculator.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f4f6f9",
+  "theme_color": "#3182ce",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/2920/2920323.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/2920/2920323.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
+
