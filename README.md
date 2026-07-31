@@ -1,6 +1,6 @@
 # Overtime Calculator (PWA & Android)
 
-A lightweight, cross-platform Progressive Web App (PWA) and Android application designed to calculate monthly overtime pay accurately based on basic pay, allowances, and working hours.
+A lightweight, cross-platform Progressive Web App (PWA) and Android application designed to calculate monthly overtime pay accurately based on basic pay, allowances, and working hours.web browser based application.
 
 ## 📱 Features
 
